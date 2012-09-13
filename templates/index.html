@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<HTML>
+ <HEAD>
+  <TITLE> {{ my_name}} </TITLE>
+  <META NAME="Generator" CONTENT="EditPlus">
+  <META NAME="Author" CONTENT="">
+  <META NAME="Keywords" CONTENT="">
+  <META NAME="Description" CONTENT="">
+  <link type="text/css" rel="stylesheet" href="/stylesheets/style.css" />
+  <script type="text/javascript" src="/wbox/jquery1.4.2.js"></script> 
+  <script type="text/javascript" src="/wbox/mapapi.js"></script> 
+  <script type="text/javascript" src="/wbox/wbox-min.js"></script>
+  <link rel="stylesheet" type="text/css" href="/wbox/wbox/wbox.css" />
+ </HEAD>
+
+ <BODY>
+
+<div id="page">
+
+  <H1> {{ my_name}} 1234 </H1>
+  <H2> <A href="http://172.21.17.50:1235">Filter Signature</A></H2>
+  <H3><a href="/">Index</a> <a href="/filter/!"> CATEGORY </a> <a href="/filter/*"> ignore  list</a> </H3>
+  <h3>Usage:  filter :status = !.ignore list: status = *</H3>
+
+ <button onclick="wBox.showBox()">Add A New Record</button>
+  <div id="content">
+     <TABLE border=1 width="1400">
+	 <col width="40" />
+	 <col width="60" />
+	 <col width="250" />
+	 <col width="70" />
+	 <col width="250" />
+	 <col width="250" />
+	 <col width="300" />
+	 <tr>
+		 <th><A href="/sort/-submitdate">Date</A></th>
+		<th><A href="/sort/yourname">USER</A></th>
+		<th><A href="/sort/filesetname">Fielset</A></th>
+		<th><A href="/sort/language">Language</A></th>
+		<th><A href="/sort/kav">KAV</A></th>
+		<th><A href="/sort/nod32">NOD32</A></th>
+		<th>Comment</th>
+		<th>Status</th>
+	 </tr>
+	{% for avwork in avworks %}
+	<tr class={{avwork.hot}}>
+	<td>{{ avwork.submitdate|date:"m.d" }}</td>
+	<td>{{ avwork.yourname }}</td>
+	<td>{{ avwork.filesetname }}</td>
+	<td>{{ avwork.language}}</td>
+	<td>{{ avwork.kav }}</td>
+	<td>{{ avwork.nod32  }}</td>
+	<td>{{ avwork.comment|linebreaksbr  }}</td>
+	<td>{{ avwork.status  }}<A href='/edit/{{ avwork.key.id }}'>EDIT</A></td>
+	</tr>
+	  {% endfor %}
+	   </TABLE>
+	   <button onclick="wBox.showBox()">Add A New Record</button>
+	 <div class="pagenavi">
+		<span class="older">-1</span>
+		<span class="newer">+1</span>
+	 </div>
+		<h2 class="center">{{ my_name}}</h2>
+		<p class="center">@ by zyguo</p>
+ 
+		 </div>
+	      
+</div>
+
+
+<script type="text/javascript"> 
+var wBox=$("#wbox1").wBox({
+   	title: "Add New Note",
+   	html: "<div class='demo'>  <FORM METHOD=POST ACTION='/add'>{% spaceless %}
+	    {{ form.as_p|escapejs }}
+		    {% endspaceless %}<INPUT TYPE='submit'> </FORM>	</div>"
+ });
+
+</script>
+
+ </BODY>
+</HTML>
